@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Dictionary</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+
+    <string name="back4app_app_id">4TidxknyrpCicfef0XfWLgWZ6QYIYLG9FRqueRV2</string>
+    <string name="back4app_client_key">nLdws8Ok0Keg5SOnCqr8rlDEbBEfgKoiVvRNMlE1</string>
+</resources>
