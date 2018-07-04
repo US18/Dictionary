@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uplabdhisingh.dictionary.model.Words;
 import com.parse.FindCallback;
@@ -31,9 +32,8 @@ public class MainActivity extends AppCompatActivity
     AutoCompleteTextView wordSearchAutoTextView;
     Button searchButton;
 
-    TextView test;
-
     ArrayList<String> arrayWords;
+    ArrayAdapter<String> adapter;
 
     String TAG = MainActivity.class.getSimpleName();
 
@@ -43,17 +43,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Parse.initialize(this);
+
         wordSearchAutoTextView = (AutoCompleteTextView) findViewById(R.id.actv_word_search);
         searchButton = (Button) findViewById(R.id.btn_search);
 
-        test = (TextView) findViewById(R.id.tv_testTV);
-
-       /* ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, arrayWords);
+        adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, arrayWords);
+        
         wordSearchAutoTextView.setThreshold(1);
         wordSearchAutoTextView.setAdapter(adapter);
         wordSearchAutoTextView.setTextColor(Color.RED);
-        */
-
 
         searchButton.setOnClickListener(new View.OnClickListener()
         {
@@ -64,9 +63,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intentToDescActivity);
             }
         });
-
         refreshList();
-
     }
 
     private void refreshList()
@@ -75,31 +72,21 @@ public class MainActivity extends AppCompatActivity
         query.findInBackground(new FindCallback<ParseObject>()
         {
             @Override
-            public void done(List<ParseObject> l, ParseException e)
+            public void done(List<ParseObject> parseObjectList, ParseException e)
             {
-                if (e == null)
+                arrayWords = new ArrayList<String>();
+                if(e == null)
                 {
-                    arrayWords = new ArrayList<String>();
-
-                    /*for (ParseObject words : objects)
+                    for(int i = 0; i < parseObjectList.size() ; i++)
                     {
-                        Words words1 = new Words(words.getObjectId(), words.getString("WORD_TITLE"),
-                                words.getString("WORD_SYN_ANT"), words.getString("WORD_CONTENT"));
-                        arrayWords.add(words1);
-
-                    }*/
-
-                    for(int i = 0; i < l.size(); i++)
-                    {
-                        String titleFromDB = l.get(i).getString("WORD_TITLE");
-                        arrayWords.add(titleFromDB);
-                        test.setText(titleFromDB);
+                        String titleFromDb = parseObjectList.get(i).getString("WORD_TITLE");
+                        arrayWords.add(titleFromDb);
                     }
+                    Log.d(TAG,"MESSAGE IS : "+arrayWords.size()+"\n");
 
                 } else {
-                    Log.d(getClass().getSimpleName(), "Error: " + e.getMessage());
+                    Log.d(TAG,"ERROR MESSAGE IS : "+e.getMessage()+"\n");
                 }
-
             }
         });
     }

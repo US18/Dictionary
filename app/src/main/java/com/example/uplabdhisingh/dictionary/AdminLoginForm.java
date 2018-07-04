@@ -37,11 +37,6 @@ public class AdminLoginForm extends AppCompatActivity
         passwordEditText = (EditText) findViewById(R.id.et_password);
 
 
-        /*
-        * username : admin
-        * password : admin@123
-        * */
-
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)

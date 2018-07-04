@@ -29,13 +29,5 @@
         android:background="#a900a6"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_testTV"
-        android:textColor="#000000"
-        android:layout_below="@id/btn_search"
-        android:layout_margin="10dp"
-        />
 
 </RelativeLayout>
